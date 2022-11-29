@@ -10,9 +10,7 @@ The models are subject to change in a different stage of the project
 
 Requirements 
 
-# No user stories for this stage of the project 
-
-# Use interfaces or types to declare your models based on TypeScript
+Use interfaces or types to declare your models based on TypeScript
 
     *Patient Module
         -Create appointments
@@ -28,13 +26,8 @@ Requirements
         -Can see all appointments with filter
         -Can add new doctors
 
-    **Auth Module
-        -Role Based
-        -Account Authentication
-        -JWT-based
+
     
-# Create a README.md file in which you will write your models and justifications 
+Create a README.md file in which you will write your models and justifications 
 
-# For every single model that you create, write why or what this model would be useful 
-
-# Create the repo where you will work for the duration of the development of the project 
+For every single model that you create, write why or what this model would be useful 
