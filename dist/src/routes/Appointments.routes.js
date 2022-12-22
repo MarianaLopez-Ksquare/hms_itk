@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppointmentsRouter = void 0;
 const express_1 = require("express");
+const firebase_1 = require("../firebase");
 const isAdmin_1 = require("../middlewares/isAdmin");
 const isAuthenticated_1 = require("../middlewares/isAuthenticated");
 const isAuthorized_1 = require("../middlewares/isAuthorized");
@@ -65,6 +66,7 @@ exports.AppointmentsRouter.get('/:id', isAuthenticated_1.isAuthenticated, (0, is
 }));
 exports.AppointmentsRouter.get('/', isAuthenticated_1.isAuthenticated, (0, isAuthorized_1.isAuthorized)({ roles: ["patient", "admin"], allowSamerUser: true }), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { page, size } = req.query;
+    const { patient_id, doctor_id } = req.params;
     // Getting token info to fetch id and uid
     const token = (0, utils_1.getToken)(req);
     console.log("1: ", token);
@@ -86,7 +88,17 @@ exports.AppointmentsRouter.get('/', isAuthenticated_1.isAuthenticated, (0, isAut
             patient_id: user.id
         }
     };
-    // if user.role == 
+    const fireBaseUser = yield (0, firebase_1.readUser)(uid);
+    switch (fireBaseUser.role) {
+        case "admin":
+            options.where = Object.assign({}, req.query);
+            break;
+        case "doctor":
+            options.where = {
+                doctor_id: user.id
+            };
+            break;
+    }
     const foundAppointments = yield (0, Appointments_repo_1.fetchAppoiments)(options);
     if (!foundAppointments) {
         res.status(404); //(404)not found info  -- 400 error del usuario (bad request)

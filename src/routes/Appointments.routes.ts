@@ -1,4 +1,5 @@
 import { Router, Request, Response } from "express";
+import { readUser } from "../firebase";
 import { isAdmin } from "../middlewares/isAdmin";
 import { isAuthenticated } from "../middlewares/isAuthenticated";
 import { isAuthorized } from "../middlewares/isAuthorized";
@@ -70,6 +71,7 @@ AppointmentsRouter.get ('/:id', isAuthenticated, isAuthorized( {roles: ["patient
 AppointmentsRouter.get ('/', isAuthenticated, isAuthorized( {roles: ["patient", "admin"], allowSamerUser: true} ), async (req:Request,res:Response)=>{
 
         const {page, size} = req.query;
+        const {patient_id, doctor_id} = req.params;
         // Getting token info to fetch id and uid
         const token = getToken(req);
         console.log("1: ",token);
@@ -96,7 +98,20 @@ AppointmentsRouter.get ('/', isAuthenticated, isAuthorized( {roles: ["patient", 
                 patient_id: user.id
             }
         }
-        // if user.role == 
+        
+        const fireBaseUser = await readUser(uid);
+        switch (fireBaseUser.role) {
+            case "admin":
+
+                options.where = {...req.query};
+                break;
+        
+            case "doctor":
+                options.where = {
+                    doctor_id : user.id
+                }
+                break;
+        }
 
         const foundAppointments = await fetchAppoiments(options);
         if (!foundAppointments){
