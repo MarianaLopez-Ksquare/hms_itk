@@ -83,5 +83,13 @@ npm run dev
 -Generate your token for a doctor
 
 
-#The endpoints collection is attached here:
+#The endpoints collection is attached here in file HSM postman_collection.json:
+HSM.postman_collection.json
+# A Postman Global Variable was set as token of idToken FireBase with test script in postman
+pm.test("Set Token",  () => {
+    var jsonData = JSON.parse(responseBody);
+    var token = jsonData.idToken;
+    pm.environment.set("token", token);
+})
+
 
