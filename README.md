@@ -51,6 +51,9 @@ npm install --save-dev typescript
 
 In order to test the code, the first step is to customize the environment variables according to your needs, verify that each of the parameters match your location to be able to do the necessary tests, among them do not forget to verify:
 
+<img width="302" alt="image" src="https://user-images.githubusercontent.com/113384082/209153649-c284cfd7-e183-4549-8ba4-0fecdab34e47.png">
+
+
 DB_PASS="raspberry",
 DB_USER="postgres",
 DB_NAME="hsm_back",
