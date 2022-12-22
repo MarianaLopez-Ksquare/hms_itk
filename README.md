@@ -23,7 +23,9 @@
 # Postman 
 ### The endpoints collection is attached here in file HSM postman_collection.json:
 HSM.postman_collection.json
-### A Postman Global Variable was set as token of idToken FireBase with test script in postman
+### A Postman Global Variable was set as token of idToken FireBase with test script in postman in order to mimic a front login token
+![image](https://user-images.githubusercontent.com/113384082/209155833-473363d1-e7e7-4872-b806-68f512c5f0c9.png)
+
 pm.test("Set Token",  () => {
     var jsonData = JSON.parse(responseBody);
     var token = jsonData.idToken;
