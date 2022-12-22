@@ -21,6 +21,14 @@
 ![WhatsApp Image 2022-12-22 at 08 10 11](https://user-images.githubusercontent.com/113384082/209152483-652ba39e-daf2-4bba-8da3-19508df2fae9.jpeg)
 
 # Postman 
+### The endpoints collection is attached here in file HSM postman_collection.json:
+HSM.postman_collection.json
+### A Postman Global Variable was set as token of idToken FireBase with test script in postman
+pm.test("Set Token",  () => {
+    var jsonData = JSON.parse(responseBody);
+    var token = jsonData.idToken;
+    pm.environment.set("token", token);
+})
 
 ![WhatsApp Image 2022-12-22 at 08 11 37](https://user-images.githubusercontent.com/113384082/209152652-3931b780-eae0-4ef7-a013-54fc8f2d10b0.jpeg)
 
