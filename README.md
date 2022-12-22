@@ -51,14 +51,16 @@ npm install --save-dev typescript
 
 In order to test the code, the first step is to customize the environment variables according to your needs, verify that each of the parameters match your location to be able to do the necessary tests, among them do not forget to verify:
 
-DB_PASS="raspberry"
-DB_USER="postgres"
-DB_NAME="hsm_back"
-HOST="localhost"
-DB_PORT=5433
-PORT=3000
-DIALECT="postgres"
+DB_PASS="raspberry",
+DB_USER="postgres",
+DB_NAME="hsm_back",
+HOST="localhost",.
+DB_PORT=5433,
+PORT=3000,
+DIALECT="postgres",
+
 GOOGLE_APPLICATION_CREDENTIALS = "./firebase.json"
+
 CLAVE_API_WEB="AIzaSyCY-veu5OPCdhvlgRVvC0bsfNbTNmzsW6w"
 
 ## GOOGLE_APPLICATION_CREDENTIALS - Document
