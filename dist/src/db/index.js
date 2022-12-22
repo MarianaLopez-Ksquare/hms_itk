@@ -13,7 +13,11 @@ const dotenv = require("dotenv");
 dotenv.config();
 //ES5 import;
 const sequelize_1 = require("sequelize");
-const Todo_1 = require("../models/Todo");
+const Admins_model_1 = require("../models/Admins.model");
+const Appoiments_model_1 = require("../models/Appoiments.model");
+const Departments_model_1 = require("../models/Departments.model");
+const Doctors_model_1 = require("../models/Doctors.model");
+const Patients_model_1 = require("../models/Patients.model");
 //ES6
 // import { Sequelize } from 'sequelize';
 /**
@@ -35,7 +39,7 @@ exports.sequelize = new sequelize_1.Sequelize(DB_NAME, DB_USER, DB_PASS, {
     port: DB_PORT,
     dialect: DIALECT,
 });
-const models = [Todo_1.Todo.initModel];
+const models = [Admins_model_1.Admins.initModel, Appoiments_model_1.Appoiments.initModel, Departments_model_1.Departments.initModel, Doctors_model_1.Doctors.initModel, Patients_model_1.Patients.initModel];
 for (const ModelInit of models) {
     ModelInit(exports.sequelize);
 }

@@ -31,28 +31,33 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __importDefault(require("./app"));
-const db_1 = require("./db");
+exports.isAuthenticated = void 0;
 const admin = __importStar(require("firebase-admin"));
-function main() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            admin.initializeApp();
-            yield db_1.sequelize.authenticate();
-            yield db_1.sequelize.sync({ force: false });
-            console.log("db connected...");
-        }
-        catch (error) {
-            console.error(error);
-            process.abort();
-        }
-    });
-}
-;
-app_1.default.listen(process.env.PORT, () => {
-    main();
+const isAuthenticated = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    // No authorization header
+    const { authorization } = req.headers;
+    if (!authorization) {
+        return res.status(401).send({ error: "No authentication" });
+    }
+    // No correct schema (Bearer)
+    if (!authorization.startsWith("Bearer ")) {
+        return res.status(401).send({ error: "No authentication" });
+    }
+    // Check if the token is valid
+    const splittedToken = authorization.split(" ");
+    if (splittedToken.length !== 2) {
+        return res.status(401).send({ error: "No authentication" });
+    }
+    ;
+    const token = splittedToken[1];
+    try {
+        const decodedToken = yield admin.auth().verifyIdToken(token);
+        res.locals = Object.assign(Object.assign({}, res.locals), { email: decodedToken.email, uid: decodedToken.uid, role: decodedToken.role });
+        return next();
+    }
+    catch (error) {
+        return res.status(401).send({ error });
+    }
 });
+exports.isAuthenticated = isAuthenticated;
