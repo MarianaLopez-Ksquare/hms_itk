@@ -102,8 +102,7 @@ AppointmentsRouter.get ('/', isAuthenticated, isAuthorized( {roles: ["patient", 
         const fireBaseUser = await readUser(uid);
         switch (fireBaseUser.role) {
             case "admin":
-
-                options.where = {...req.query};
+                options.where = {};
                 break;
         
             case "doctor":
